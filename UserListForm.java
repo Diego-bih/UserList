@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package spdvi;
-
+import java.time.LocalDate;
 /**
  *
  * @author Alumne
@@ -27,7 +27,6 @@ public class UserListForm extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
         txtId = new javax.swing.JTextField();
         txtFirstName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
@@ -42,49 +41,18 @@ public class UserListForm extends javax.swing.JFrame {
         lblGender = new javax.swing.JLabel();
         btnInsert = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        srcOutput = new javax.swing.JScrollPane();
+        txaOutput = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtId.setText("Id");
-
-        txtFirstName.setText("FirstName");
-        txtFirstName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFirstNameActionPerformed(evt);
-            }
-        });
-
-        txtLastName.setText("LastName");
-        txtLastName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLastNameActionPerformed(evt);
-            }
-        });
-
-        txtBirthDate.setText("BirthDate");
-
         chkAlive.setText("Alive");
-        chkAlive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkAliveActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(radMale);
         radMale.setText("Male");
-        radMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radMaleActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(radFemale);
         radFemale.setText("Female");
-        radFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radFemaleActionPerformed(evt);
-            }
-        });
 
         lblId.setText("Id");
 
@@ -97,9 +65,18 @@ public class UserListForm extends javax.swing.JFrame {
         lblGender.setText("Gender");
 
         btnInsert.setText("Insert");
+        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("User List");
+
+        txaOutput.setColumns(20);
+        txaOutput.setRows(5);
+        srcOutput.setViewportView(txaOutput);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +85,7 @@ public class UserListForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(srcOutput)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFirstName)
@@ -170,32 +147,21 @@ public class UserListForm extends javax.swing.JFrame {
                     .addComponent(chkAlive)
                     .addComponent(btnInsert))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(srcOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
+    private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFirstNameActionPerformed
-
-    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLastNameActionPerformed
-
-    private void chkAliveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAliveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkAliveActionPerformed
-
-    private void radMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radMaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radMaleActionPerformed
-
-    private void radFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radFemaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radFemaleActionPerformed
+        LocalDate birthDate = LocalDate.parse(txtBirthDate.getText());
+        String gender = "Male";
+        if (radFemale.isSelected()) gender = "Female";
+        User user = new User(txtId.getText(), txtFirstName.getText(), txtLastName.getText(), birthDate, gender, chkAlive.isSelected());
+        txaOutput.setText(user.toString());
+    }//GEN-LAST:event_btnInsertActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,7 +203,6 @@ public class UserListForm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkAlive;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBirthDate;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblGender;
@@ -245,6 +210,8 @@ public class UserListForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblLastName;
     private javax.swing.JRadioButton radFemale;
     private javax.swing.JRadioButton radMale;
+    private javax.swing.JScrollPane srcOutput;
+    private javax.swing.JTextArea txaOutput;
     private javax.swing.JTextField txtBirthDate;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtId;
