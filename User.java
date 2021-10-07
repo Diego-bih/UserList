@@ -78,6 +78,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User: " + "id: " + id + ", firstName: " + firstName + ", lastName: " + lastName + ", birthDate: " + birthDate + ", gender: " + gender + ", isAlive: " + isAlive;
+        int age = LocalDate.now().getYear() - birthDate.getYear();
+        return "User: " + "id: " + id + ", firstName: " + firstName + ", lastName: " + lastName + ", birthDate: " + birthDate + ", Edat: " + age + ", gender: " + gender + ", isAlive: " + isAlive + "\n";
     }
 }

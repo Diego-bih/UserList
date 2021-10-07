@@ -189,13 +189,13 @@ public class UserListForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
         LocalDate birthDate = LocalDate.parse(txtBirthDate.getText());
         String gender = "Male";
         if (radFemale.isSelected()) gender = "Female";
         User user/*newUser*/ = new User(Integer.parseInt(txtId.getText()), txtFirstName.getText(), txtLastName.getText(), birthDate, gender, chkAlive.isSelected());
         //users.add(newUser);
-        txaOutput.setText(user.toString());
+        txaOutput.append(user.toString());
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
