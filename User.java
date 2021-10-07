@@ -10,6 +10,23 @@ import java.time.LocalDate;
  */
 public class User {
 
+    private int id;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthDate;
+    private String gender;
+    private boolean isAlive;
+    
+    User(int id, String firstName, String lastName, LocalDate birthDate,String gender, boolean isAlive) {//To change body of generated methods, choose Tools | Templates.
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.isAlive = isAlive;
+        
+    }
+
     public int getId() {
         return id;
     }
@@ -36,12 +53,13 @@ public class User {
 
     public LocalDate getBirthDate() {
         return birthDate;
+        
     }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-
+    
     public String getGender() {
         return gender;
     }
@@ -60,13 +78,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDate=" + birthDate + ", gender=" + gender + ", isAlive=" + isAlive + '}';
+        return "User: " + "id: " + id + ", firstName: " + firstName + ", lastName: " + lastName + ", birthDate: " + birthDate + ", gender: " + gender + ", isAlive: " + isAlive;
     }
-   
-    private int id;
-    private String firstName;
-    private String lastName;
-    private LocalDate birthDate;
-    private String gender;
-    private boolean isAlive;
 }
