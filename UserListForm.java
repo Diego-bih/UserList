@@ -193,23 +193,47 @@ public class UserListForm extends javax.swing.JFrame {
         LocalDate birthDate = LocalDate.parse(txtBirthDate.getText());
         String gender = "Male";
         if (radFemale.isSelected()) gender = "Female";
-        User user/*newUser*/ = new User(Integer.parseInt(txtId.getText()), txtFirstName.getText(), txtLastName.getText(), birthDate, gender, chkAlive.isSelected());
-        //users.add(newUser);
-        txaOutput.append(user.toString());
+        User /*user*/newUser = new User(Integer.parseInt(txtId.getText()), txtFirstName.getText(), txtLastName.getText(), birthDate, gender, chkAlive.isSelected());
+        users.add(newUser);
+        txaOutput.append(newUser.toString());
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try {
+        try {       
             // TODO add your handling code here:
-            PrintWriter out = new PrintWriter(fileName);
-            out.write(txaOutput.getText());
-            out.close();
+            BufferedWriter writer =  new BufferedWriter(new FileWriter(fileName));
+            for(User u: users){
+                String userString = u.getId() + "," + u.getLastName() + "," + u.getFirstName() + "," + u.getBirthDate().getYear() + "-" + u.getBirthDate().getMonthValue() + "-" + u.getBirthDate().getDayOfMonth() + "," + u.getGender() + "," + (u.isIsAlive() ? "Alive" : "Dead") + System.lineSeparator();
+                writer.append(userString);
+            }
+            writer.close();
         } catch (FileNotFoundException ex) {}
+        catch(IOException o){}
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
         // TODO add your handling code here:
+          try {
+            users.clear();
+            BufferedReader reader =  new BufferedReader(new FileReader(fileName));
+            String currentLine = reader.readLine();
+            while(currentLine != null)
+            {
+                String[] fields = currentLine.split(",");
+                User user = new User(Integer.parseInt(fields[0]), fields[2], fields [1], LocalDate.parse(fields[3]), fields[4], fields[5].equals("Alive")/*? true:false*/);
+                users.add(user);
+                currentLine = reader.readLine();
+            }
+          }catch (FileNotFoundException ex) {}
+           catch(IOException e){}
+           for (User u: users)
+           txaOutput.append(u.toString());
+        /*
+        for (int i = 0;i < users.size();i++)
+        {
+           txaOutput.append(users.get(i).toString());}*/
+        /*
         File file = new File(fileName);
         BufferedReader br;
         try {
@@ -219,7 +243,7 @@ public class UserListForm extends javax.swing.JFrame {
             txaOutput.setText(chain);
             txaOutput.getText();
         } catch (IOException e ) {
-        }
+        }*/
     }//GEN-LAST:event_btnLoadActionPerformed
 
     /**

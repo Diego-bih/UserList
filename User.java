@@ -75,10 +75,16 @@ public class User {
     public void setIsAlive(boolean isAlive) {
         this.isAlive = isAlive;
     }
+    
+    public int age()          
+    {
+       int age = LocalDate.now().getYear() - birthDate.getYear();
+       return age;
+    }
 
     @Override
     public String toString() {
-        int age = LocalDate.now().getYear() - birthDate.getYear();
-        return "User: " + "id: " + id + ", firstName: " + firstName + ", lastName: " + lastName + ", birthDate: " + birthDate + ", Edat: " + age + ", gender: " + gender + ", isAlive: " + isAlive + "\n";
+        
+        return id + ": " + firstName + " - " + lastName + " - " + birthDate + " - " + age() + " - " + gender + " - " + isAlive + System.lineSeparator();
     }
 }
