@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 /**
  *
  * @author Alumne
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 public class UserListForm extends javax.swing.JFrame {
     final static String fileName = "src/users.txt";
     ArrayList<User> users = new ArrayList<User>();
+    
 
     /**
      * Creates new form UserListForm
@@ -58,6 +60,14 @@ public class UserListForm extends javax.swing.JFrame {
         txaOutput = new javax.swing.JTextArea();
         btnLoad = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        btnPollDialog = new javax.swing.JButton();
+        btnPollDialog2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstList = new javax.swing.JList<>();
+        btnGetSelectedItem = new javax.swing.JButton();
+        lblList = new javax.swing.JLabel();
+        btnLoadIntoList = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +117,48 @@ public class UserListForm extends javax.swing.JFrame {
             }
         });
 
+        btnPollDialog.setText("Poll");
+        btnPollDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPollDialogActionPerformed(evt);
+            }
+        });
+
+        btnPollDialog2.setText("Poll 2");
+        btnPollDialog2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPollDialog2ActionPerformed(evt);
+            }
+        });
+
+        lstList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstList);
+
+        btnGetSelectedItem.setText("Get selected item");
+        btnGetSelectedItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGetSelectedItemActionPerformed(evt);
+            }
+        });
+
+        btnLoadIntoList.setText("Load");
+        btnLoadIntoList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadIntoListActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,41 +166,71 @@ public class UserListForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(srcOutput)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFirstName)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFirstName)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblId)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblGender))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jLabel6)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnPollDialog)
+                                        .addGap(20, 20, 20)
+                                        .addComponent(btnPollDialog2))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblLastName)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(lblBirthDate)
+                                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(41, 41, 41)
+                                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(radMale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radFemale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                                .addComponent(chkAlive))
-                            .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblId)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblGender))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblLastName))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblBirthDate)
-                                    .addComponent(txtBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(radFemale)
+                                .addGap(33, 33, 33)
+                                .addComponent(chkAlive)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                                .addComponent(btnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLoadIntoList, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(srcOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(btnGetSelectedItem)
+                                        .addGap(5, 5, 5)
+                                        .addComponent(lblList, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +241,11 @@ public class UserListForm extends javax.swing.JFrame {
                         .addComponent(lblId))
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPollDialog2)
+                        .addComponent(btnPollDialog)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFirstName)
@@ -172,7 +258,7 @@ public class UserListForm extends javax.swing.JFrame {
                     .addComponent(txtBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblGender)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radMale)
                     .addComponent(radFemale)
@@ -180,9 +266,20 @@ public class UserListForm extends javax.swing.JFrame {
                     .addComponent(btnInsert)
                     .addComponent(btnLoad)
                     .addComponent(btnSave))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(srcOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLoadIntoList)
+                    .addComponent(btnDelete))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(srcOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGetSelectedItem)
+                            .addComponent(lblList, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(7, 7, 7))
         );
 
         pack();
@@ -190,7 +287,16 @@ public class UserListForm extends javax.swing.JFrame {
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here
-        LocalDate birthDate = LocalDate.parse(txtBirthDate.getText());
+        LocalDate birthDate = LocalDate.now();
+        try {
+            birthDate = LocalDate.parse(txtBirthDate.getText());
+        }
+        catch(Exception ex)
+        {
+            EncuestaDialog poll = new EncuestaDialog(this, true);
+            poll.getLblMessage().setText(ex.getMessage());
+            poll.setVisible(true);
+        }
         String gender = "Male";
         if (radFemale.isSelected()) gender = "Female";
         User /*user*/newUser = new User(Integer.parseInt(txtId.getText()), txtFirstName.getText(), txtLastName.getText(), birthDate, gender, chkAlive.isSelected());
@@ -199,6 +305,9 @@ public class UserListForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        PopUp popup = new PopUp(this, false);
+        popup.setVisible(true);
+        if (popup.save = true){
         try {       
             // TODO add your handling code here:
             BufferedWriter writer =  new BufferedWriter(new FileWriter(fileName));
@@ -209,6 +318,7 @@ public class UserListForm extends javax.swing.JFrame {
             writer.close();
         } catch (FileNotFoundException ex) {}
         catch(IOException o){}
+        }
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -229,7 +339,7 @@ public class UserListForm extends javax.swing.JFrame {
            catch(IOException e){}
            for (User u: users)
            txaOutput.append(u.toString());
-        /*
+        /*;
         for (int i = 0;i < users.size();i++)
         {
            txaOutput.append(users.get(i).toString());}*/
@@ -246,7 +356,55 @@ public class UserListForm extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_btnLoadActionPerformed
 
-    /**
+    private void btnPollDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPollDialogActionPerformed
+        // TODO add your handling code here:
+        EncuestaDialog poll = new EncuestaDialog(this, false);
+        poll.getLblMessage().setText("Missatge des de el MainForm");
+        poll.setVisible(true);
+    }//GEN-LAST:event_btnPollDialogActionPerformed
+
+    private void btnPollDialog2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPollDialog2ActionPerformed
+        // TODO add your handling code here:ç
+        EncuestaDialog poll2 = new EncuestaDialog(this, false);
+        poll2.setVisible(true);
+    }//GEN-LAST:event_btnPollDialog2ActionPerformed
+
+    private void btnGetSelectedItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetSelectedItemActionPerformed
+        // TODO add your handling code here:
+        lblList.setText(lstList.getSelectedValue());
+    }//GEN-LAST:event_btnGetSelectedItemActionPerformed
+
+    private void btnLoadIntoListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadIntoListActionPerformed
+        // TODO add your handling code here:
+            try {
+            users.clear();
+            BufferedReader reader =  new BufferedReader(new FileReader(fileName));
+            String currentLine = reader.readLine();
+            while(currentLine != null)
+            {
+                String[] fields = currentLine.split(",");
+                User user = new User(Integer.parseInt(fields[0] ), fields[2], fields [1], LocalDate.parse(fields[3]), fields[4], fields[5].equals("Alive")/*? true:false*/);
+                users.add(user);
+                currentLine = reader.readLine();
+            }
+          }catch (FileNotFoundException ex) {}
+           catch(IOException e){}
+           DefaultListModel userListModel = new DefaultListModel();
+           for (User u:users)
+           {
+               userListModel.addElement(u.toString());
+           }
+           lstList.setModel(userListModel);
+    }//GEN-LAST:event_btnLoadIntoListActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        String selectedUser = lstList.getSelectedValue();
+        int lastIndex = selectedUser.indexOf(":");
+        int selectedUserId = Integer.parseInt(selectedUser.substring(0, lastIndex-1));
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    /*
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -282,17 +440,25 @@ public class UserListForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnGetSelectedItem;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnLoad;
+    private javax.swing.JButton btnLoadIntoList;
+    private javax.swing.JButton btnPollDialog;
+    private javax.swing.JButton btnPollDialog2;
     private javax.swing.JButton btnSave;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkAlive;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBirthDate;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblList;
+    private javax.swing.JList<String> lstList;
     private javax.swing.JRadioButton radFemale;
     private javax.swing.JRadioButton radMale;
     private javax.swing.JScrollPane srcOutput;
